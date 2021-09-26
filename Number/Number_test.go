@@ -23,3 +23,22 @@ func BenchmarkAverage(t *testing.B) {
 		_ = toolNumber.Average(num)
 	}
 }
+
+///////////////////////////////////// 测试 Sum ///////////////////////////////////
+// 测试命令: go test -v -run TestSum Number/*
+func TestSum(t *testing.T) {
+	var toolNumber Number
+	num := []interface{}{1,2,3,4,5,6,7,8,9,10,"aa","bb",[]string{"a","b"}}
+	res1 := toolNumber.Sum(num)
+	fmt.Println(res1)
+}
+
+// go test -v -run TestSum -bench=BenchmarkSum -count=5 Number/*
+func BenchmarkSum(t *testing.B) {
+	t.ResetTimer()
+	var toolNumber Number
+	num := []interface{}{1,2,3,4,5,6,7,8,9,10}
+	for i:=0; i< t.N; i++ {
+		_ = toolNumber.Sum(num)
+	}
+}
