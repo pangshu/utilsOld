@@ -153,6 +153,25 @@ func BenchmarkRandInt64(t *testing.B) {
 	}
 }
 
+///////////////////////////////////// 测试 Round ///////////////////////////////////
+// 测试命令: go test -v -run TestRound Number/*
+func TestRound(t *testing.T) {
+	var toolNumber Number
+	num := 123.81515151515
+	res1 := toolNumber.Round(num,3)
+	fmt.Println(res1)
+}
+
+// 测试命令: go test -v -run TestRound -bench=BenchmarkRound -count=5 Number/*
+func BenchmarkRound(t *testing.B) {
+	t.ResetTimer()
+	var toolNumber Number
+	num := 123.815
+	for i:=0; i< t.N; i++ {
+		_ = toolNumber.Round(num,3)
+	}
+}
+
 ///////////////////////////////////// 测试 Sum ///////////////////////////////////
 // 测试命令: go test -v -run TestSum Number/*
 func TestSum(t *testing.T) {
