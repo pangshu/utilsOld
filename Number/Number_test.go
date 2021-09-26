@@ -24,6 +24,25 @@ func BenchmarkAverage(t *testing.B) {
 	}
 }
 
+///////////////////////////////////// 测试 Format ///////////////////////////////////
+// 测试命令: go test -v -run TestFormat Number/*
+func TestFormat(t *testing.T) {
+	var toolNumber Number
+	sum := 1234567890.123123123
+	res1 := toolNumber.Format(sum, 8, ".", ",")
+	fmt.Println(res1)
+}
+
+// go test -v -run TestFormat -bench=BenchmarkFormat -count=5 Number/*
+func BenchmarkFormat(t *testing.B) {
+	t.ResetTimer()
+	var toolNumber Number
+	sum := 1234567890.123123123
+	for i:=0; i< t.N; i++ {
+		_ = toolNumber.Format(sum, 2, ".", "")
+	}
+}
+
 ///////////////////////////////////// 测试 Sum ///////////////////////////////////
 // 测试命令: go test -v -run TestSum Number/*
 func TestSum(t *testing.T) {
