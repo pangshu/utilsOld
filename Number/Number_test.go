@@ -43,6 +43,23 @@ func BenchmarkFormat(t *testing.B) {
 	}
 }
 
+///////////////////////////////////// 测试 IsBetween ///////////////////////////////////
+// 测试命令: go test -v -run TestIsBetween Number/*
+func TestIsBetween(t *testing.T) {
+	var toolNumber Number
+	res1 := toolNumber.IsBetween(2,"1.9",5)
+	fmt.Println(res1)
+}
+
+// 测试命令: go test -v -run TestIsBetween -bench=BenchmarkIsBetween -count=5 Number/*
+func BenchmarkIsBetween(t *testing.B) {
+	t.ResetTimer()
+	var toolNumber Number
+	for i:=0; i< t.N; i++ {
+		_ = toolNumber.IsBetween(2,1,3)
+	}
+}
+
 ///////////////////////////////////// 测试 Sum ///////////////////////////////////
 // 测试命令: go test -v -run TestSum Number/*
 func TestSum(t *testing.T) {
