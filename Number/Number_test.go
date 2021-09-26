@@ -102,6 +102,23 @@ func BenchmarkMin(t *testing.B) {
 	}
 }
 
+///////////////////////////////////// 测试 RandArray ///////////////////////////////////
+// 测试命令: go test -v -run TestRandArray Number/*
+func TestRandArray(t *testing.T) {
+	var toolNumber Number
+	res1,_ := toolNumber.RandArray(5,10, 3, false)
+	fmt.Println(res1)
+}
+
+// 测试命令: go test -v -run TestRandArray -bench=BenchmarkRandArray -count=5 Number/*
+func BenchmarkRandArray(t *testing.B) {
+	t.ResetTimer()
+	var toolNumber Number
+	for i:=0; i< t.N; i++ {
+		_,_ = toolNumber.RandArray(5,10, 3, false)
+	}
+}
+
 ///////////////////////////////////// 测试 RandInt ///////////////////////////////////
 // 测试命令: go test -v -run TestRandInt Number/*
 func TestRandInt(t *testing.T) {
