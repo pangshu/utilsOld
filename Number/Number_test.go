@@ -60,6 +60,27 @@ func BenchmarkIsBetween(t *testing.B) {
 	}
 }
 
+///////////////////////////////////// 测试 Min ///////////////////////////////////
+// 测试命令: go test -v -run TestMin Number/*
+func TestMin(t *testing.T) {
+	var toolNumber Number
+	num := []interface{}{-1, 0, "18", true, nil, int8(1), int16(2), int32(3), int64(4), uint(5),
+		uint8(6), uint16(7), uint32(8), uint64(9), float32(10.0), float64(11.1)}
+	res1 := toolNumber.Min(num)
+	fmt.Println(res1)
+}
+
+// 测试命令: go test -v -run TestMin -bench=BenchmarkMin -count=5 Number/*
+func BenchmarkMin(t *testing.B) {
+	t.ResetTimer()
+	var toolNumber Number
+	num := []interface{}{-1, 0, "18", true, nil, int8(1), int16(2), int32(3), int64(4), uint(5),
+		uint8(6), uint16(7), uint32(8), uint64(9), float32(10.0), float64(11.1)}
+	for i:=0; i< t.N; i++ {
+		_ = toolNumber.Min(num)
+	}
+}
+
 ///////////////////////////////////// 测试 Sum ///////////////////////////////////
 // 测试命令: go test -v -run TestSum Number/*
 func TestSum(t *testing.T) {
