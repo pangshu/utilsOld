@@ -119,6 +119,23 @@ func BenchmarkRandInt(t *testing.B) {
 	}
 }
 
+///////////////////////////////////// 测试 RandInt64 ///////////////////////////////////
+// 测试命令: go test -v -run TestRandInt64 Number/*
+func TestRandInt64(t *testing.T) {
+	var toolNumber Number
+	res1 := toolNumber.RandInt64(100,1)
+	fmt.Println(res1)
+}
+
+// 测试命令: go test -v -run TestRandInt64 -bench=BenchmarkRandInt64 -count=5 Number/*
+func BenchmarkRandInt64(t *testing.B) {
+	t.ResetTimer()
+	var toolNumber Number
+	for i:=0; i< t.N; i++ {
+		_ = toolNumber.RandInt64(1,10)
+	}
+}
+
 ///////////////////////////////////// 测试 Sum ///////////////////////////////////
 // 测试命令: go test -v -run TestSum Number/*
 func TestSum(t *testing.T) {
