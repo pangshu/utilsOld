@@ -102,6 +102,23 @@ func BenchmarkMin(t *testing.B) {
 	}
 }
 
+///////////////////////////////////// 测试 Percent ///////////////////////////////////
+// 测试命令: go test -v -run TestPercent Number/*
+func TestPercent(t *testing.T) {
+	var toolNumber Number
+	res1 := toolNumber.Percent(1, 1000)
+	fmt.Println(res1)
+}
+
+// 测试命令: go test -v -run TestPercent -bench=BenchmarkPercent -count=5 Number/*
+func BenchmarkPercent(t *testing.B) {
+	t.ResetTimer()
+	var toolNumber Number
+	for i:=0; i< t.N; i++ {
+		_ = toolNumber.Percent(5, 10)
+	}
+}
+
 ///////////////////////////////////// 测试 RandArray ///////////////////////////////////
 // 测试命令: go test -v -run TestRandArray Number/*
 func TestRandArray(t *testing.T) {
