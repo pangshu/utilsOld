@@ -102,6 +102,23 @@ func BenchmarkMin(t *testing.B) {
 	}
 }
 
+///////////////////////////////////// 测试 RandInt ///////////////////////////////////
+// 测试命令: go test -v -run TestRandInt Number/*
+func TestRandInt(t *testing.T) {
+	var toolNumber Number
+	res1 := toolNumber.RandInt(100,1)
+	fmt.Println(res1)
+}
+
+// 测试命令: go test -v -run TestRandInt -bench=BenchmarkRandInt -count=5 Number/*
+func BenchmarkRandInt(t *testing.B) {
+	t.ResetTimer()
+	var toolNumber Number
+	for i:=0; i< t.N; i++ {
+		_ = toolNumber.RandInt(1,10)
+	}
+}
+
 ///////////////////////////////////// 测试 Sum ///////////////////////////////////
 // 测试命令: go test -v -run TestSum Number/*
 func TestSum(t *testing.T) {
