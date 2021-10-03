@@ -60,6 +60,25 @@ func BenchmarkIsBetween(t *testing.B) {
 	}
 }
 
+///////////////////////////////////// 测试 IsWhole ///////////////////////////////////
+// 测试命令: go test -v -run TestIsWhole Number/*
+func TestIsWhole(t *testing.T) {
+	var toolNumber Number
+	num := 5.0
+	res1 := toolNumber.IsWhole(num)
+	fmt.Println(res1)
+}
+
+// 测试命令: go test -v -run TestIsWhole -bench=BenchmarkIsWhole -count=5 Number/*
+func BenchmarkIsWhole(t *testing.B) {
+	t.ResetTimer()
+	var toolNumber Number
+	num := 5.5
+	for i:=0; i< t.N; i++ {
+		_ = toolNumber.IsWhole(num)
+	}
+}
+
 ///////////////////////////////////// 测试 Max ///////////////////////////////////
 // 测试命令: go test -v -run TestMax Number/*
 func TestMax(t *testing.T) {
