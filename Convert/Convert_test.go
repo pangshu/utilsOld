@@ -107,3 +107,77 @@ func BenchmarkToStr(t *testing.B) {
 
 	}
 }
+
+
+
+///////////////////////////////////// 测试 ToInt ///////////////////////////////////
+// 测试命令: go test -v -run TestToInt Convert/*
+func TestToInt(t *testing.T) {
+	var toolConvert Convert
+	tests := []struct {
+		input  interface{}
+	}{
+		{int(9223372036854775807)},
+		{int8(127)},
+		{int16(32767)},
+		{int32(2147483647)},
+		{int64(9223372036854775807)},
+		{uint(18446744073709551615)},
+		{uint8(255)},
+		{uint16(65535)},
+		{uint32(4294967295)},
+		{uint64(18446744073709551615)},
+		{float32(8.31)},
+		{float64(8.31)},
+		{true},
+		{false},
+		{"9223372036854775807"},
+		{nil},
+		// errors
+		{"test"},
+		{testing.T{}},
+	}
+
+	for _, test := range tests {
+		//errmsg := fmt.Sprintf("i = %d", i) // assert helper message
+		//fmt.Println(errmsg)
+		v := toolConvert.ToInt(test.input)
+		b := reflect.ValueOf(test.input)
+		fmt.Println(test.input , " >>>>>>>>>>>> " , b.Kind() , " >>>>>>>>>>> ", v)
+	}
+}
+
+// go test -v -run TestToInt -bench=BenchmarkToInt -count=5 Convert/*
+func BenchmarkToInt(t *testing.B) {
+	t.ResetTimer()
+	var toolConvert Convert
+	tests := []struct {
+		input  interface{}
+	}{
+		{int(9223372036854775807)},
+		{int8(127)},
+		{int16(32767)},
+		{int32(2147483647)},
+		{int64(9223372036854775807)},
+		{uint(18446744073709551615)},
+		{uint8(255)},
+		{uint16(65535)},
+		{uint32(4294967295)},
+		{uint64(18446744073709551615)},
+		{float32(8.31)},
+		{float64(8.31)},
+		{true},
+		{false},
+		{"8"},
+		{nil},
+		// errors
+		{"test"},
+		{testing.T{}},
+	}
+	for i:=0; i< t.N; i++ {
+		for _, test := range tests {
+			_ = toolConvert.ToInt(test.input)
+		}
+
+	}
+}
