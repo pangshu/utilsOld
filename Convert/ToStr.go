@@ -42,11 +42,10 @@ func (*Convert)ToStr(value interface{}) (string,error) {
 	case reflect.Ptr, reflect.Struct, reflect.Map: //指针、结构体和字典
 		b, err := json.Marshal(v.Interface())
 		if err != nil {
-			return "", fmt.Errorf("unable to cast %#v of type %T to string", v, v)
+			return "", fmt.Errorf("unable to cast %#v of type %v to string", v, v)
 		} else {
 			return string(b), nil
 		}
-
 	default:
 		return "", fmt.Errorf("unable to cast %#v of type %T to string", v, v)
 	}

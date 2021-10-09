@@ -3,7 +3,6 @@ package Convert
 import (
 	"fmt"
 	"math"
-	"reflect"
 	"strconv"
 )
 
@@ -12,16 +11,62 @@ func (*Convert)ToInt32(value interface{}) (int32, error) {
 	if value == nil {
 		return 0, nil
 	}
-	var i interface{}
-	if t := reflect.TypeOf(value); t.Kind() != reflect.Ptr {
-		i = value
-	} else {
-		v := reflect.ValueOf(value)
-		for v.Kind() == reflect.Ptr && !v.IsNil() {
-			v = v.Elem()
-		}
-		i = v.Interface()
-	}
+	i := indirect(value)
+
+	////处理类型转换
+	//v := reflect.ValueOf(i)
+	//switch v.Kind() {
+	//case reflect.Invalid:
+	//	return 0, nil
+	//case reflect.Bool:
+	//	if v.Bool() {
+	//		return 1, nil
+	//	} else {
+	//		return 0, nil
+	//	}
+	//case reflect.String:
+	//	vv, err := strconv.ParseInt(v.String(), 8, 0)
+	//	if err == nil {
+	//		return int32(vv), nil
+	//	} else {
+	//		return 0, fmt.Errorf("unable to cast %#v of type %v to int32", v, v.Kind())
+	//	}
+	//case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+	//	tmpValue := v.Int()
+	//	if tmpValue >= math.MinInt32 && v.Int() <= math.MaxInt32 {
+	//		return int32(tmpValue), nil
+	//	} else {
+	//		return int32(tmpValue), fmt.Errorf("unable to cast %#v of type %v to int32", v, v.Kind())
+	//	}
+	//case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+	//	tmpValue := v.Uint()
+	//	if tmpValue <= math.MaxInt32 {
+	//		return int32(tmpValue), nil
+	//	} else {
+	//		return int32(tmpValue), fmt.Errorf("unable to cast %#v of type %v to int32", v, v.Kind())
+	//	}
+	//case reflect.Float32, reflect.Float64:
+	//	tmpValue := v.Float()
+	//	if tmpValue <= math.MaxInt32 {
+	//		return int32(tmpValue), nil
+	//	} else {
+	//		return int32(tmpValue), fmt.Errorf("unable to cast %#v of type %v to int32", v, v.Kind())
+	//	}
+	//case reflect.Slice:
+	//	vv, err := strconv.ParseInt(string(v.Bytes()), 32, 0)
+	//	if err == nil {
+	//		return int32(vv), nil
+	//	} else {
+	//		return 0, fmt.Errorf("unable to cast %#v of type %v to int32", v, v.Kind())
+	//	}
+	//case reflect.Ptr, reflect.Struct, reflect.Map: //指针、结构体和字典
+	//	return 0, fmt.Errorf("unable to cast %#v of type %v to int32", v, v.Kind())
+	//default:
+	//	return 0, fmt.Errorf("unable to cast %#v of type %v to int32", v, v.Kind())
+	//}
+
+
+
 	//处理类型转换
 	switch s := i.(type) {
 	case int:

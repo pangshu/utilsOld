@@ -3,7 +3,6 @@ package Convert
 import (
 	"fmt"
 	"math"
-	"reflect"
 	"strconv"
 )
 
@@ -12,16 +11,62 @@ func (*Convert)ToUint(value interface{}) (uint,error) {
 	if value == nil {
 		return 0, nil
 	}
-	var i interface{}
-	if t := reflect.TypeOf(value); t.Kind() != reflect.Ptr {
-		i = value
-	} else {
-		v := reflect.ValueOf(value)
-		for v.Kind() == reflect.Ptr && !v.IsNil() {
-			v = v.Elem()
-		}
-		i = v.Interface()
-	}
+	i := indirect(value)
+
+	////处理类型转换
+	//v := reflect.ValueOf(i)
+	//switch v.Kind() {
+	//case reflect.Invalid:
+	//	return 0, nil
+	//case reflect.Bool:
+	//	if v.Bool() {
+	//		return 1, nil
+	//	} else {
+	//		return 0, nil
+	//	}
+	//case reflect.String:
+	//	vv, err := strconv.ParseInt(v.String(), 8, 0)
+	//	if err == nil {
+	//		return uint(vv), nil
+	//	} else {
+	//		return 0, fmt.Errorf("unable to cast %#v of type %v to uint", v, v.Kind())
+	//	}
+	//case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+	//	tmpValue := v.Int()
+	//	if tmpValue >= 0 {
+	//		return uint(tmpValue), nil
+	//	} else {
+	//		return uint(tmpValue), fmt.Errorf("unable to cast %#v of type %v to uint", v, v.Kind())
+	//	}
+	//case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
+	//	tmpValue := v.Uint()
+	//	if tmpValue <= math.MaxUint {
+	//		return uint(tmpValue), nil
+	//	} else {
+	//		return uint(tmpValue), fmt.Errorf("unable to cast %#v of type %v to uint", v, v.Kind())
+	//	}
+	//case reflect.Float32, reflect.Float64:
+	//	tmpValue := v.Float()
+	//	if tmpValue <= math.MaxUint {
+	//		return uint(tmpValue), nil
+	//	} else {
+	//		return uint(tmpValue), fmt.Errorf("unable to cast %#v of type %v to uint", v, v.Kind())
+	//	}
+	//case reflect.Slice:
+	//	vv, err := strconv.ParseInt(string(v.Bytes()), 8, 0)
+	//	if err == nil {
+	//		return uint(vv), nil
+	//	} else {
+	//		return 0, fmt.Errorf("unable to cast %#v of type %v to uint", v, v.Kind())
+	//	}
+	//case reflect.Ptr, reflect.Struct, reflect.Map: //指针、结构体和字典
+	//	return 0, fmt.Errorf("unable to cast %#v of type %v to uint", v, v.Kind())
+	//default:
+	//	return 0, fmt.Errorf("unable to cast %#v of type %v to uint", v, v.Kind())
+	//}
+	
+	
+	
 	//处理类型转换
 	switch s := i.(type) {
 	case int:

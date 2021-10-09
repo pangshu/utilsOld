@@ -11,10 +11,9 @@ func (*Convert)ToInt8(value interface{}) (int8, error) {
 	if value == nil {
 		return 0, nil
 	}
-
 	i := indirect(value)
-	//v := reflect.ValueOf(i)
 	////处理类型转换
+	//v := reflect.ValueOf(i)
 	//switch v.Kind() {
 	//case reflect.Invalid:
 	//	return 0, nil
@@ -25,32 +24,35 @@ func (*Convert)ToInt8(value interface{}) (int8, error) {
 	//		return 0, nil
 	//	}
 	//case reflect.String:
-	//	vv, err := strconv.ParseInt(v.String(), 8, 0)
+	//	vv, err := strconv.ParseInt(v.String(), 0, 0)
 	//	if err == nil {
 	//		return int8(vv), nil
 	//	} else {
 	//		return 0, fmt.Errorf("unable to cast %#v of type %v to int8", v, v.Kind())
 	//	}
 	//case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
-	//	if v.Int() >= math.MinInt8 && v.Int() <= math.MaxInt8 {
-	//		return int8(v.Int()), nil
+	//	tmpValue := v.Int()
+	//	if tmpValue >= math.MinInt8 && v.Int() <= math.MaxInt8 {
+	//		return int8(tmpValue), nil
 	//	} else {
-	//		return int8(v.Int()), fmt.Errorf("unable to cast %#v of type %v to int8", v, v.Kind())
+	//		return int8(tmpValue), fmt.Errorf("unable to cast %#v of type %v to int8", v, v.Kind())
 	//	}
 	//case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
-	//	if v.Uint() <= math.MaxInt8 {
-	//		return int8(v.Uint()), nil
+	//	tmpValue := v.Uint()
+	//	if tmpValue <= math.MaxInt8 {
+	//		return int8(tmpValue), nil
 	//	} else {
-	//		return int8(v.Uint()), fmt.Errorf("unable to cast %#v of type %v to int8", v, v.Kind())
+	//		return int8(tmpValue), fmt.Errorf("unable to cast %#v of type %v to int8", v, v.Kind())
 	//	}
 	//case reflect.Float32, reflect.Float64:
-	//	if v.Float() <= math.MaxInt8 {
-	//		return int8(v.Float()), nil
+	//	tmpValue := v.Float()
+	//	if tmpValue <= math.MaxInt8 {
+	//		return int8(tmpValue), nil
 	//	} else {
-	//		return int8(v.Float()), fmt.Errorf("unable to cast %#v of type %v to int8", v, v.Kind())
+	//		return int8(tmpValue), fmt.Errorf("unable to cast %#v of type %v to int8", v, v.Kind())
 	//	}
 	//case reflect.Slice:
-	//	vv, err := strconv.ParseInt(string(v.Bytes()), 8, 0)
+	//	vv, err := strconv.ParseInt(string(v.Bytes()), 0, 0)
 	//	if err == nil {
 	//		return int8(vv), nil
 	//	} else {
@@ -133,9 +135,13 @@ func (*Convert)ToInt8(value interface{}) (int8, error) {
 			return int8(s), fmt.Errorf("unable to cast %#v of type %T to int8", i, i)
 		}
 	case string:
-		vv, err := strconv.ParseInt(s, 8, 0)
+		vv, err := strconv.ParseInt(s, 0, 0)
 		if err == nil {
-			return int8(vv), nil
+			if vv <= math.MaxInt8 {
+				return int8(vv), nil
+			} else {
+				return int8(vv), fmt.Errorf("unable to cast %#v of type %T to int8", i, i)
+			}
 		} else {
 			return 0, fmt.Errorf("unable to cast %#v of type %T to int8", i, i)
 		}
