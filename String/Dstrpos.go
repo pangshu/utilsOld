@@ -16,7 +16,7 @@ func (toolString *String)Dstrpos(str string, arr []string, chkCase bool) (bool, 
 			tmpStr = strings.ToLower(str)
 			valStr = strings.ToLower(v)
 		}
-		if toolString.Strpos(tmpStr, valStr, 0) != -1 {
+		if toolString.StrPos(tmpStr, valStr, 0) != -1 {
 			return true, valStr
 		}
 	}
