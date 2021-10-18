@@ -2,7 +2,7 @@ package Html
 
 
 // BrToNl 将br标签转换为换行符.
-func BrToNl(str string) string {
+func (*Html)BrToNl(str string) string {
 	// <br> , <br /> , <br/>
 	// <BR> , <BR /> , <BR/>
 	nlchar := []byte("\n")

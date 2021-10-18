@@ -3,7 +3,7 @@ package Html
 import "strings"
 
 // NlToBr 将换行符转换为br标签.
-func NlToBr(html string) string {
+func (*Html)NlToBr(html string) string {
 	if html == "" {
 		return ""
 	}
