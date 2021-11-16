@@ -142,8 +142,9 @@ func BenchmarkPercent(t *testing.B) {
 // 测试命令: go test -v -run TestRandArray Number/*
 func TestRandArray(t *testing.T) {
 	var toolNumber Number
-	res1,_ := toolNumber.RandArray(5,10, 3, false)
+	res1,resErr := toolNumber.RandArray(1,6, 6, false)
 	fmt.Println(res1)
+	fmt.Println(resErr)
 }
 
 // 测试命令: go test -v -run TestRandArray -bench=BenchmarkRandArray -count=5 Number/*

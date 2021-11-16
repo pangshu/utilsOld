@@ -19,7 +19,7 @@ func (*Number)RandArray(min, max, size int, isRepeat ...bool) ([]int, error) {
 	}
 
 	// 不重复模式下面，数组数量不能大于最大值
-	if repeatStatus == false && (max < size || (max-min) < size) {
+	if repeatStatus == false && (max < size || (max-min+1) < size) {
 		return nil, errors.New("数据不能重复模式下面，数组数量不能大于最大值")
 	}
 

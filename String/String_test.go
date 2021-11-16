@@ -9,17 +9,26 @@ import (
 ///////////////////////////////////// 测试 ToCharset ///////////////////////////////////
 // 测试命令: go test -v -run TestFirstLetter String/*
 func TestFirstLetter(t *testing.T) {
-	var toolbaktring String
-	res1 := toolbaktring.FirstLetter("测Hello world. I love Shanghai!")
+	var toolString String
+	res1 := toolString.FirstLetter("测Hello world. I love Shanghai!")
 	fmt.Println(res1)
 }
 
 // go test -v -run TestFirstLetter -bench=BenchmarkFirstLetter -count=5 String/*
 func BenchmarkFirstLetter(t *testing.B) {
-	t.StopTimer()
-	t.StartTimer()
+	t.ResetTimer()
 	for i:=0; i< t.N; i++ {
-		var toolbaktring String
-		_ = toolbaktring.FirstLetter("Hello world. I love Shanghai!")
+		var toolString String
+		_ = toolString.FirstLetter("Hello world. I love Shanghai!")
 	}
+}
+
+///////////////////////////////////// 测试 ToCharset ///////////////////////////////////
+// 测试命令: go test -v -run TestExplode String/*
+func TestExplode(t *testing.T) {
+	var toolString String
+	tmpStr := []string{" ", "(", "（"}
+	res1 := toolString.Explode("测Hello", tmpStr...)
+	//res1 := toolString.Explode("测Hello (world). I love Shanghai!", tmpStr...)
+	fmt.Println(res1)
 }
