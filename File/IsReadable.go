@@ -1,12 +1,27 @@
 package File
 
-import "syscall"
+import (
+	"os"
+)
 
 // IsReadable 路径是否可读.
-func (*File)IsReadable(filePath string) bool {
-	err := syscall.Access(filePath, syscall.O_RDONLY)
+func (*File) IsReadable(filePath string) bool {
+	//err := syscall.Access(filePath, syscall.O_RDONLY)
+	//if err != nil {
+	//	return false
+	//}
+
+	file, err := os.OpenFile(filePath, os.O_RDONLY, 0666)
 	if err != nil {
-		return false
+		if os.IsPermission(err) {
+			return false
+			//log.Println("Error: Read permission denied.")
+		}
 	}
-	return true
+	closeErr := file.Close()
+	if closeErr != nil {
+		return false
+	} else {
+		return true
+	}
 }
