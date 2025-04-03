@@ -1,15 +1,15 @@
 package utilsOld
 
 import (
-	DuduConvert "github.com/pangshu/utilsOld/Convert"
-	DuduDate "github.com/pangshu/utilsOld/Date"
-	DuduFile "github.com/pangshu/utilsOld/File"
-	DuduHtml "github.com/pangshu/utilsOld/Html"
-	DuduLog "github.com/pangshu/utilsOld/Log"
-	DuduNet "github.com/pangshu/utilsOld/Net"
-	DuduNumber "github.com/pangshu/utilsOld/Number"
-	DuduString "github.com/pangshu/utilsOld/String"
-	DuduUrl "github.com/pangshu/utilsOld/Url"
+	DuduConvert "utilsOld/Convert"
+	DuduDate "utilsOld/Date"
+	DuduFile "utilsOld/File"
+	DuduHtml "utilsOld/Html"
+	DuduLog "utilsOld/Log"
+	DuduNet "utilsOld/Net"
+	DuduNumber "utilsOld/Number"
+	DuduString "utilsOld/String"
+	DuduUrl "utilsOld/Url"
 )
 
 var (
